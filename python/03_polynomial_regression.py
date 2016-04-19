@@ -14,6 +14,7 @@ fig, ax = plt.subplots(1, 1)
 xs = np.linspace(-3, 3, n_observations)
 ys = np.sin(xs) + np.random.uniform(-0.5, 0.5, n_observations)
 ax.scatter(xs, ys)
+ax.set_ylim([-3, 3])
 fig.show()
 plt.draw()
 
@@ -66,6 +67,8 @@ with tf.Session() as sess:
             ax.plot(xs, Y_pred.eval(
                 feed_dict={X: xs}, session=sess),
                     'k', alpha=epoch_i / n_epochs)
+            regression_function = [pow(xs, pow_i) * sess.run(W) for i in range(0, 5)][0]
+            ax.plot(xs, regression_function) 
             fig.show()
             plt.draw()
 
@@ -75,4 +78,6 @@ with tf.Session() as sess:
         prev_training_cost = training_cost
 ax.set_ylim([-3, 3])
 fig.show()
+plt.waitforbuttonpress()
+ax.plot(xs, regression_function) 
 plt.waitforbuttonpress()
