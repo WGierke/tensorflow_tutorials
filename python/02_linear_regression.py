@@ -68,6 +68,7 @@ with tf.Session() as sess:
             ax.plot(xs, Y_pred.eval(
                 feed_dict={X: xs}, session=sess),
                     'k', alpha=epoch_i / n_epochs)
+            ax.plot(xs, sess.run(W) * xs + sess.run(b))
             fig.show()
             plt.draw()
 
